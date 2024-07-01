@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form to Google Sheets</title>
+</head>
+
+<body>
+  <form id="dataForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    document.getElementById('dataForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      axios.post('https://script.google.com/macros/s/AKfycbz_B_sPMdbM8gFRuEEQ5PGbW9aTtPkHB0jT37L7dxVZxwjLnR8IxmGPB4bKt_lPtC8a/exec', data)
+        .then(response => {
+          console.log(response.data);
+          alert('Form submitted successfully!');
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+          alert('Form submission failed.');
+        });
+    });
+  </script>
+</body>
+
+</html>
