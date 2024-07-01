@@ -24,7 +24,15 @@
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
-      axios.post('https://script.google.com/macros/s/AKfycbz_B_sPMdbM8gFRuEEQ5PGbW9aTtPkHB0jT37L7dxVZxwjLnR8IxmGPB4bKt_lPtC8a/exec', data)
+      axios({
+        method: 'post',
+        url: 'https://script.google.com/macros/s/AKfycbz_B_sPMdbM8gFRuEEQ5PGbW9aTtPkHB0jT37L7dxVZxwjLnR8IxmGPB4bKt_lPtC8a/exec',
+        data: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        mode: 'no-cors'
+      })
         .then(response => {
           console.log(response.data);
           alert('Form submitted successfully!');
@@ -33,7 +41,8 @@
           console.error('There was an error!', error);
           alert('Form submission failed.');
         });
-    });
+    })
+
   </script>
 </body>
 
